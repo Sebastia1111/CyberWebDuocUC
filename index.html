@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciberseguridad DuocUC 2026 | Agenda Operativa</title>
+    <style>
+        /* --- FUENTES Y VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0a0f0d;
+            --text-main: #c0c5ce;
+            --text-dim: #6272a4;
+            --neon-green: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-pink: #ff79c6;
+            --border-color: #2d333b;
+            --font-mono: 'Fira Code', monospace;
+            --font-display: 'Share Tech Mono', monospace;
+        }
+
+        /* --- RESET Y BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- UTILIDADES --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .highlight { color: var(--neon-green); }
+        .cyan { color: var(--neon-cyan); }
+        .pink { color: var(--neon-pink); }
+
+        /* --- HEADER --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background-color: rgba(5, 5, 5, 0.95);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--neon-green);
+            padding: 5px 10px;
+            box-shadow: 0 0 5px rgba(80, 250, 123, 0.2);
+        }
+
+        .logo span { color: var(--neon-green); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .blink-cursor::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* --- FILTROS --- */
+        .filters {
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text-dim);
+            padding: 8px 20px;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(139, 233, 253, 0.2);
+        }
+
+        /* --- TIMELINE (EVENTOS) --- */
+        .timeline {
+            padding: 20px 0 80px 0;
+            position: relative;
+        }
+
+        /* Línea vertical central */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border-color);
+            transform: translateX(-50%);
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            padding: 25px;
+            width: 45%;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+        }
+
+        /* Alternancia izquierda/derecha */
+        .event-card:nth-child(odd) { margin-left: auto; }
+        .event-card:nth-child(even) { margin-right: auto; }
+
+        /* Punto en la línea de tiempo */
+        .event-card::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-color);
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .event-card:nth-child(odd)::after {
+            left: -58px; /* Ajuste para posición derecha */
+        }
+        
+        .event-card:nth-child(even)::after {
+            right: -58px; /* Ajuste para posición izquierda */
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .event-date {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+        }
+
+        .event-tag {
+            font-size: 0.75rem;
+            border: 1px solid var(--text-dim);
+            padding: 2px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Colores de tags */
+        .tag-ctf { border-color: var(--neon-pink); color: var(--neon-pink); }
+        .tag-curso { border-color: var(--neon-green); color: var(--neon-green); }
+        .tag-charla { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+
+        .event-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .event-meta {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .event-desc {
+            font-size: 0.95rem;
+            color: #abb2bf;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            
+            .event-card {
+                width: 100%;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding-left: 50px;
+            }
+
+            .event-card::after {
+                left: 15px !important;
+                right: auto !important;
+            }
+            
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span>&lt;</span> DUOC_SEC <span>/&gt;</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-dim);">
+                    SISTEMA: EN LÍNEA
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- INTRODUCCIÓN -->
+        <section class="hero">
+            <h1>Ciberseguridad <span class="highlight">2026</span></h1>
+            <p class="blink-cursor">root@duoc:~$ ./init_plan.sh</p>
+            <p style="margin-top: 15px;">
+                Planificación operativa de actividades. CTFs, cursos técnicos y charlas especializadas.
+                <br>Prepárate para el próximo año.
+            </p>
+        </section>
+
+        <!-- FILTROS -->
+        <section class="filters">
+            <button class="filter-btn active" onclick="filterEvents('all')">TODOS</button>
+            <button class="filter-btn" onclick="filterEvents('ctf')">CTF</button>
+            <button class="filter-btn" onclick="filterEvents('curso')">CURSOS</button>
+            <button class="filter-btn" onclick="filterEvents('charla')">CHARLAS</button>
+        </section>
+
+        <!-- LÍNEA DE TIEMPO DE EVENTOS -->
+        <section class="timeline" id="timeline-container">
+            
+            <!-- EVENTO 1 -->
+            <article class="event-card" data-category="charla">
+                <div class="event-header">
+                    <span class="event-date">MARZO 2026</span>
+                    <span class="event-tag tag-charla">Charla</span>
+                </div>
+                <h3 class="event-title">Kick-off: Tendencias 2026</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Híbrida]</span>
+                    <span>[Estado: Confirmado]</span>
+                </div>
+                <p class="event-desc">
+                    Inicio del ciclo académico. Presentación de las nuevas amenazas y roadmap de la comunidad de ciberseguridad para el año.
+                </p>
+            </article>
+
+            <!-- EVENTO 2 -->
+            <article class="event-card" data-category="ctf">
+                <div class="event-header">
+                    <span class="event-date">ABRIL 2026</span>
+                    <span class="event-tag tag-ctf">CTF</span>
+                </div>
+                <h3 class="event-title">Bootcamp CTF Inicial</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Presencial]</span>
+                    <span>[Nivel: Básico]</span>
+                </div>
+                <p class="event-desc">
+                    Competencia estilo "Capture The Flag" enfocada en estudiantes nuevos. Categorías: Criptografía básica, OSINT y Web Hacking.
+                </p>
+            </article>
+
+            <!-- EVENTO 3 -->
+            <article class="event-card" data-category="curso">
+                <div class="event-header">
+                    <span class="event-date">MAYO 2026</span>
+                    <span class="event-tag tag-curso">Curso</span>
+                </div>
+                <h3 class="event-title">Ethical Hacking 101</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Online]</span>
+                    <span>[Duración: 4 Semanas]</span>
+                </div>
+                <p class="event-desc">
+                    Introducción práctica a Kali Linux, reconocimiento de redes y análisis de vulnerabilidades. Requiere laptop propia.
+                </p>
+            </article>
+
+            <!-- EVENTO 4 -->
+            <article class="event-card" data-category="ctf">
+                <div class="event-header">
+                    <span class="event-date">JUNIO 2026</span>
+                    <span class="event-tag tag-ctf">CTF</span>
+                </div>
+                <h3 class="event-title">DuocWargames Mid-Year</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Online]</span>
+                    <span>[Nivel: Intermedio]</span>
+                </div>
+                <p class="event-desc">
+                    Evento semestral de mayor dificultad. Desafíos de Pwn, Reverse Engineering y Forense. Premios para el top 3.
+                </p>
+            </article>
+
+            <!-- EVENTO 5 -->
+            <article class="event-card" data-category="charla">
+                <div class="event-header">
+                    <span class="event-date">AGOSTO 2026</span>
+                    <span class="event-tag tag-charla">Charla</span>
+                </div>
+                <h3 class="event-title">Seguridad en la Nube</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Presencial]</span>
+                    <span>[Invitado: TBD]</span>
+                </div>
+                <p class="event-desc">
+                    Análisis de casos reales de filtraciones en AWS y Azure. Buenas prácticas para ingenieros y administradores.
+                </p>
+            </article>
+
+             <!-- EVENTO 6 -->
+             <article class="event-card" data-category="curso">
+                <div class="event-header">
+                    <span class="event-date">SEPTIEMBRE 2026</span>
+                    <span class="event-tag tag-curso">Taller</span>
+                </div>
+                <h3 class="event-title">Blue Team Operations</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Laboratorio]</span>
+                    <span>[Cupos: Limitados]</span>
+                </div>
+                <p class="event-desc">
+                    Simulación de respuesta a incidentes. Uso de SIEM, detección de intrusos y análisis de logs.
+                </p>
+            </article>
+
+            <!-- EVENTO 7 -->
+            <article class="event-card" data-category="ctf">
+                <div class="event-header">
+                    <span class="event-date">NOVIEMBRE 2026</span>
+                    <span class="event-tag tag-ctf">CTF</span>
+                </div>
+                <h3 class="event-title">Gran Final DuocUC 2026</h3>
+                <div class="event-meta">
+                    <span>[Modalidad: Presencial]</span>
+                    <span>[Nivel: Avanzado]</span>
+                </div>
+                <p class="event-desc">
+                    El evento cierre del año. Competencia por equipos para definir a los mejores hackers de la generación 2026.
+                </p>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                <span class="highlight">&copy; 2026 Ciberseguridad DuocUC</span><br>
+                Designed for Hackers. Coded with HTML5 & CSS3.<br>
+                <span style="font-size: 0.8em; color: #444;">[System integrity: 100%]</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica simple para filtrar eventos
+        function filterEvents(category) {
+            const cards = document.querySelectorAll('.event-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Actualizar estado visual de los botones
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText === 'TODOS')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Mostrar/Ocultar tarjetas
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                    // Pequeña animación de entrada
+                    card.style.opacity = '0';
+                    setTimeout(() => card.style.opacity = '1', 50);
+                } else {
+                    if (card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.opacity = '1', 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

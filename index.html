@@ -244,6 +244,18 @@
             color: #abb2bf;
         }
 
+        /* --- ESTILOS DE LAS ETIQUETAS (TAGS) --- */
+        .tag-ctf { border-color: var(--neon-green); color: var(--neon-green); }
+        .tag-curso { border-color: var(--neon-pink); color: var(--neon-pink); }
+        .tag-charla { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+
+        /* >>> AQUÍ AGREGAS TU NUEVA CATEGORÍA <<< */
+        /* Por ejemplo: Rojo para Talleres */
+        .tag-actividad { border-color: #ff5555; color: #ff5555; } 
+
+        /* Si quieres otro, por ejemplo Amarillo para Concursos */
+        /* .tag-concurso { border-color: #f1fa8c; color: #f1fa8c; }
+
         /* --- FOOTER --- */
         footer {
             border-top: 1px solid var(--border-color);
@@ -306,16 +318,17 @@
             <button class="filter-btn" onclick="filterEvents('ctf')">CTF</button>
             <button class="filter-btn" onclick="filterEvents('curso')">CURSOS</button>
             <button class="filter-btn" onclick="filterEvents('charla')">CHARLAS</button>
+            <button class="filter-btn" onclick="filterEvents('actividad')">ACTIVIDADES</button>
         </section>
 
         <!-- LÍNEA DE TIEMPO DE EVENTOS -->
         <section class="timeline" id="timeline-container">
             
             <!-- EVENTO 1 -->
-            <article class="event-card" data-category="charla">
+            <article class="event-card" data-category="ctf">
                 <div class="event-header">
                     <span class="event-date">01/ABRIL 2026</span>
-                    <span class="event-tag tag-charla">CTF</span>
+                    <span class="event-tag tag-ctf">CTF</span>
                 </div>
                 <h3 class="event-title">HACK4U CTF</h3>
                 <div class="event-meta">
@@ -323,13 +336,13 @@
                     <span>[Estado: Confirmado]</span>
                 </div>
                 <p class="event-desc">
-                    hack4u.io/ctf - 39 retos en 6 categorías:
-                    > Criptografía
-                    > Esteganografía
-                    > Forense
-                    > Reversing
-                    > Miscelánea
-                    > Scripting
+                    hack4u.io/ctf - 39 retos en 6 categorías: <br>
+                    > Criptografía <br>
+                    > Esteganografía <br>
+                    > Forense <br>
+                    > Reversing <br>
+                    > Miscelánea <br>
+                    > Scripting <br>
                 </p>
             </article>
 
@@ -351,10 +364,10 @@
             </article>
 
             <!-- EVENTO 3 -->
-            <article class="event-card" data-category="curso">
+            <article class="event-card" data-category="actividad">
                 <div class="event-header">
                     <span class="event-date">[S/F]MAYO 2026</span>
-                    <span class="event-tag tag-curso">ACTIVIDAD</span>
+                    <span class="event-tag tag-actividad">ACTIVIDAD</span>
                 </div>
                 <h3 class="event-title">Desencripta la Bandera</h3>
                 <div class="event-meta">

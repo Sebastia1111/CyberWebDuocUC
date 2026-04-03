@@ -5,282 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ciberseguridad DuocUC 2026 | Agenda Operativa</title>
     <style>
-        /* --- FUENTES Y VARIABLES --- */
+        /* --- NUEVO CSS --- */
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Share+Tech+Mono&display=swap');
 
         :root {
-            --bg-color: #050505;
-            --card-bg: #0a0f0d;
-            --text-main: #c0c5ce;
-            --text-dim: #6272a4;
-            --neon-green: #50fa7b;
-            --neon-cyan: #8be9fd;
-            --neon-pink: #ff79c6;
+            --bg-color: #050505; --card-bg: #0a0f0d; --text-main: #c0c5ce; --text-dim: #6272a4;
+            --neon-green: #50fa7b; --neon-cyan: #8be9fd; --neon-pink: #ff79c6;
             --border-color: #2d333b;
-            --font-mono: 'Fira Code', monospace;
-            --font-display: 'Share Tech Mono', monospace;
+            --font-mono: 'Fira Code', monospace; --font-display: 'Share Tech Mono', monospace;
         }
-
-        /* --- RESET Y BASE --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            line-height: 1.6;
-            font-size: 16px;
-            overflow-x: hidden;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-mono); line-height: 1.6; font-size: 16px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- UTILIDADES --- */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
         .highlight { color: var(--neon-green); }
-        .cyan { color: var(--neon-cyan); }
-        .pink { color: var(--neon-pink); }
-
-        /* --- HEADER --- */
-        header {
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            background-color: rgba(5, 5, 5, 0.95);
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--neon-green);
-            padding: 5px 10px;
-            box-shadow: 0 0 5px rgba(80, 250, 123, 0.2);
-        }
-
+        header { border-bottom: 1px solid var(--border-color); padding: 20px 0; position: sticky; top: 0; background-color: rgba(5, 5, 5, 0.95); z-index: 100; backdrop-filter: blur(5px); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--neon-green); padding: 5px 10px; box-shadow: 0 0 5px rgba(80, 250, 123, 0.2); }
         .logo span { color: var(--neon-green); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            padding: 60px 0;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            color: var(--text-dim);
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-
-        .blink-cursor::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
+        .hero { padding: 60px 0; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .hero h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 15px; text-transform: uppercase; }
+        .hero p { color: var(--text-dim); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+        .blink-cursor::after { content: '_'; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
         /* --- FILTROS --- */
-        .filters {
-            padding: 30px 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+        .filters { padding: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .filter-btn { background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim); padding: 8px 20px; font-family: var(--font-mono); cursor: pointer; text-transform: uppercase; font-size: 0.9rem; transition: all 0.3s ease; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--neon-cyan); color: var(--neon-cyan); box-shadow: 0 0 10px rgba(139, 233, 253, 0.2); }
+
+        /* --- TIMELINE Y ESTADO COMPLETADO (LO NUEVO) --- */
+        .timeline { padding: 20px 0 80px 0; position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border-color); transform: translateX(-50%); }
+        .event-card { background: var(--card-bg); border: 1px solid var(--border-color); margin-bottom: 40px; padding: 25px; width: 45%; position: relative; transition: transform 0.3s ease, border-color 0.3s ease; }
+
+        /* Estilo cuando agregas la clase 'completed' */
+        .event-card.completed {
+            border-left: 5px solid var(--neon-green); /* Borde verde a la izquierda */
+            box-shadow: 0 0 15px rgba(80, 250, 123, 0.15); /* Brillo suave */
+        }
+        .event-card.completed .event-title {
+            color: var(--neon-green); /* Título en verde brillante */
+            text-shadow: 0 0 10px rgba(80, 250, 123, 0.6); /* Resplandor */
+        }
+        .event-card.completed::after {
+            background: var(--neon-green); /* Punto de la línea verde */
+            box-shadow: 0 0 10px var(--neon-green);
         }
 
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--text-dim);
-            color: var(--text-dim);
-            padding: 8px 20px;
-            font-family: var(--font-mono);
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(139, 233, 253, 0.2);
-        }
-
-        /* --- TIMELINE (EVENTOS) --- */
-        .timeline {
-            padding: 20px 0 80px 0;
-            position: relative;
-        }
-
-        /* Línea vertical central */
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: var(--border-color);
-            transform: translateX(-50%);
-        }
-
-        .event-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            margin-bottom: 40px;
-            padding: 25px;
-            width: 45%;
-            position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-green);
-        }
-
-        /* Alternancia izquierda/derecha */
+        .event-card:hover { transform: translateY(-5px); border-color: var(--neon-green); }
         .event-card:nth-child(odd) { margin-left: auto; }
         .event-card:nth-child(even) { margin-right: auto; }
+        .event-card::after { content: ''; position: absolute; top: 20px; width: 12px; height: 12px; background: var(--bg-color); border: 2px solid var(--neon-green); border-radius: 50%; z-index: 10; }
+        .event-card:nth-child(odd)::after { left: -58px; }
+        .event-card:nth-child(even)::after { right: -58px; }
 
-        /* Punto en la línea de tiempo */
-        .event-card::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            background: var(--bg-color);
-            border: 2px solid var(--neon-green);
-            border-radius: 50%;
-            z-index: 10;
-        }
+        .event-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .date-wrapper { display: flex; align-items: center; }
+        .event-date { font-family: var(--font-display); font-size: 1.2rem; color: var(--neon-cyan); }
+        .event-card.completed .event-date { color: var(--neon-green); } /* Fecha verde también */
 
-        .event-card:nth-child(odd)::after {
-            left: -58px; /* Ajuste para posición derecha */
+        /* Insignia COMPLETADO */
+        .badge-completed {
+            display: none; /* Oculto por defecto */
+            border: 1px solid var(--neon-green); color: var(--neon-green);
+            background: rgba(80, 250, 123, 0.1); padding: 2px 8px; font-size: 0.7rem;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-left: 10px;
+            box-shadow: 0 0 5px var(--neon-green); animation: pulse 2s infinite;
         }
-        
-        .event-card:nth-child(even)::after {
-            right: -58px; /* Ajuste para posición izquierda */
-        }
+        .event-card.completed .badge-completed { display: inline-block; } /* Visible al marcar */
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(80, 250, 123, 0.4); } 70% { box-shadow: 0 0 0 5px rgba(80, 250, 123, 0); } 100% { box-shadow: 0 0 0 0 rgba(80, 250, 123, 0); } }
 
-        .event-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .event-date {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: var(--neon-cyan);
-        }
-
-        .event-tag {
-            font-size: 0.75rem;
-            border: 1px solid var(--text-dim);
-            padding: 2px 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Colores de tags */
-        .tag-ctf { border-color: var(--neon-pink); color: var(--neon-pink); }
-        .tag-curso { border-color: var(--neon-green); color: var(--neon-green); }
-        .tag-charla { border-color: var(--neon-cyan); color: var(--neon-cyan); }
-
-        .event-title {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .event-meta {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-bottom: 15px;
-            display: flex;
-            gap: 15px;
-        }
-
-        .event-desc {
-            font-size: 0.95rem;
-            color: #abb2bf;
-        }
-
-        /* --- ESTILOS DE LAS ETIQUETAS (TAGS) --- */
+        .event-tag { font-size: 0.75rem; border: 1px solid var(--text-dim); padding: 2px 8px; text-transform: uppercase; letter-spacing: 1px; }
         .tag-ctf { border-color: var(--neon-green); color: var(--neon-green); }
         .tag-curso { border-color: var(--neon-pink); color: var(--neon-pink); }
         .tag-charla { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .tag-actividad { border-color: #ff5555; color: #ff5555; }
+        .event-title { font-size: 1.4rem; margin-bottom: 10px; color: #fff; transition: all 0.3s ease; }
+        .event-meta { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 15px; display: flex; gap: 15px; }
+        .event-desc { font-size: 0.95rem; color: #abb2bf; }
+        footer { border-top: 1px solid var(--border-color); padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-dim); }
 
-        /* >>> AQUÍ AGREGAS TU NUEVA CATEGORÍA <<< */
-        /* Por ejemplo: Rojo para Talleres */
-        .tag-actividad { border-color: #ff5555; color: #ff5555; } 
-
-        /* Si quieres otro, por ejemplo Amarillo para Concursos */
-        /* .tag-concurso { border-color: #f1fa8c; color: #f1fa8c; } */
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-dim);
-        }
-
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .timeline::before { left: 20px; }
-            
-            .event-card {
-                width: 100%;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
-                padding-left: 50px;
-            }
-
-            .event-card::after {
-                left: 15px !important;
-                right: auto !important;
-            }
-            
+            .event-card { width: 100%; margin-left: 0 !important; margin-right: 0 !important; padding-left: 50px; }
+            .event-card::after { left: 15px !important; right: auto !important; }
             .hero h1 { font-size: 1.8rem; }
         }
     </style>
@@ -325,10 +134,12 @@
         <section class="timeline" id="timeline-container">
             
             <!-- EVENTO 1 -->
-            <article class="event-card" data-category="ctf">
+            <article class="event-card completed" data-category="ctf">
                 <div class="event-header">
                     <span class="event-date">01/ABRIL 2026</span>
+                    <span class="badge-completed">COMPLETADO</span>
                     <span class="event-tag tag-ctf">CTF</span>
+                    
                 </div>
                 <h3 class="event-title">HACK4U CTF</h3>
                 <div class="event-meta">

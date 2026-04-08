@@ -29,6 +29,23 @@
         .blink-cursor::after { content: '_'; animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
 
+        /* Estilo para el botón del tutorial */
+        .nav-btn {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 4px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(139, 233, 253, 0.1);
+            box-shadow: 0 0 10px rgba(139, 233, 253, 0.3);
+            text-decoration: none;
+        }
+
         /* --- FILTROS --- */
         .filters { padding: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .filter-btn { background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim); padding: 8px 20px; font-family: var(--font-mono); cursor: pointer; text-transform: uppercase; font-size: 0.9rem; transition: all 0.3s ease; }
@@ -102,8 +119,14 @@
                 <div class="logo">
                     <span>&lt;</span> DUOC_SEC <span>/&gt;</span>
                 </div>
-                <div style="font-size: 0.8rem; color: var(--text-dim);">
-                    SISTEMA: EN LÍNEA
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    
+                    <!-- AQUÍ ESTÁ EL NUEVO BOTÓN DE TUTORIAL -->
+                    <a href="tutorial.html" class="nav-btn">[ TUTORIAL ]</a>
+                    
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">
+                        SISTEMA: EN LÍNEA
+                    </div>
                 </div>
             </nav>
         </div>
@@ -226,8 +249,8 @@
                 </p>
             </article>
 
-             <!-- EVENTO 6 -->
-             <article class="event-card" data-category="curso">
+            <!-- EVENTO 6 -->
+            <article class="event-card" data-category="curso">
                 <div class="event-header">
                     <span class="event-date">??? 2026</span>
                     <span class="event-tag tag-curso">Taller</span>

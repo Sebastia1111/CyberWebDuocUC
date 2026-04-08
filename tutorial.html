@@ -183,8 +183,9 @@
                     <span class="command">sudo</span> apt update && <span class="command">sudo</span> apt upgrade -y<br><br>
                     
                     <span class="code-comment"># Instalar Zsh</span><br>
-                    <span class="command">sudo</span> apt install <span class="argument">zsh</span> -y<br><br>
-                    
+                    <span class="command">sudo</span> apt install <span class="argument">zsh</span> -y<br>
+                    <span class="code-comment"># También podemos visualizar la versión con 'zsh --version'</span><br><br>
+
                     <span class="code-comment"># Establecer Zsh como shell por defecto</span><br>
                     <span class="command">chsh</span> -s $(<span class="command">which</span> zsh)
                 </div>
@@ -203,7 +204,8 @@
                     <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
                 </div>
                 <div class="code-content">
-                    sh -c "<span class="command">$(curl</span> -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                    sh -c "<span class="command">$(curl</span> -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                    
                 </div>
             </div>
             <p>
@@ -255,11 +257,117 @@
         </section>
 
         <!-- PASO 4 -->
-        <section class="step">
+        <class="step">
             <h2><span class="step-number">04</span> Configuración Final</h2>
             <p>
-                Reinicia tu terminal. El asistente de configuración de P10k se iniciará automáticamente. Sigue los pasos en pantalla para elegir el estilo que más te guste (estilo "Rainbow" recomendado para hackers).
+                Reinicia tu terminal. El asistente de configuración de P10k se iniciará automáticamente o puedes usar 'p10k configure'. Sigue los pasos en pantalla para elegir el estilo que más te guste (estilo "Rainbow" recomendado para hackers).
             </p>
+
+            <br><p>Recomendación personal: Al entrar a la configuración, te recomiendo el siguiente orden de opciones:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    > (y)<br>
+                    > (y)<br>
+                    > (y)<br>
+                    > (1)<br>
+                    > (y)<br>
+                    > (3)<br>
+                    > (1)<br>
+                    > (1)<br>
+                    > (1)<br>
+                    > (2)<br>
+                    > (3)<br>
+                    > (1)<br>
+                    > (2)<br>
+                    > (2)<br>
+                    > (2)<br>
+                    > (n)<br>
+                    > (1)<br>
+                    > (y)<br>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 4.1 -->
+        <section class="step">
+            <h2><span class="step-number">04.1</span> Instalar Fuentes Necesarias (Crucial)</h2>
+            <p>
+                Powerlevel10k requiere una fuente con soporte de glifos y símbolos especiales. La fuente recomendada es MesloLGS NF.
+            </p><br>
+            
+            <p>Descargar e Instalar las Fuentes:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="code-comment"># Importante: cada 'curl' va en una sola línea hasta terminar el '.ttf'</span><br>
+                    <span class="code-comment"># tener en cuenta que '~/Descargas' y '~/Downloads' depende del idioma instalado</span><br>
+                    cd <span class="command">~/Descargas && {</span><br>
+                    &nbsp;&nbsp;curl -fsSL<span class="command"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o MesloLGS\ NF\ Regular.ttf</span><br>
+                    &nbsp;&nbsp;curl -fsSL<span class="command"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o MesloLGS\ NF\ Bold.ttf</span><br>
+                    &nbsp;&nbsp;curl -fsSL<span class="command"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o MesloLGS\ NF\ Italic.ttf</span><br>
+                    &nbsp;&nbsp;curl -fsSL<span class="command"> https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o MesloLGS\ NF\ Bold\ Italic.ttf</span><br>
+                    <span class="command">}</span><br><br>
+
+                    <span class="code-comment"># Para instalar las fuentes en el sistema:</span><br>
+                    sudo mkdir -p <span class="command">/usr/share/fonts/truetype/meslo</span><br>
+                    sudo mv <span class="command">~/Descargas/MesloLGS*.ttf /usr/share/fonts/truetype/meslo/</span><br>
+                    sudo <span class="command">fc-cache</span> -fv<br>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLUGINS -->
+        <section class="step">
+            <h2><span class="step-number">EXTRA</span> PLUGINS</h2>
+            <p>
+                Ahora viene la parte divertida: añadir las funcionalidades de "sugerencias" y "resaltado de sintaxis".
+            </p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="code-comment"># Zsh Autosuggestions</span><br>
+                    git <span class="command">clone https://github.com/zsh-users/zsh-autosuggestions </span>${ZSH_CUSTOM:-~/.oh-my-zsh/custom}<span class="command">/plugins/zsh-autosuggestions</span><br><br>
+                    
+                    <span class="code-comment"># Zsh Syntax Highlighting</span><br>
+                    git <span class="command">clone https://github.com/zsh-users/zsh-syntax-highlighting.git </span>${ZSH_CUSTOM:-~/.oh-my-zsh/custom}<span class="command">/plugins/zsh-syntax-highlighting</span><br><br>
+
+                    <span class="code-comment"># Activar los Plugins</span><br>
+                    nano <span class="command">~/.zshrc</span>
+                </div>
+            </div>
+            <p>
+                Dentro del 'zshrc' buscaremos la sección 'plugins=(git ...)'
+            </p>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    plugins<span class="command">=(</span><br>
+                    &nbsp;&nbsp;git<br>
+                    <span class="command">&nbsp;&nbsp;zsh-autosuggestions</span><br>
+                    <span class="command">&nbsp;&nbsp;zsh-syntax-highlighting</span><br>
+                    <span class="command">)</span>
+                </div>
+            </div>
+            <p>Guarda los cambios (Ctrl + O, Ctrl + X) y recarga la configuración:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    source <span class="command">~/.zshrc</span><br>
+                </div>
+            </div>
         </section>
 
     </main>

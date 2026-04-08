@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Terminal | Ciberseguridad DuocUC</title>
+    <style>
+        /* --- IMPORTAMOS LAS MISMAS FUENTES Y VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0a0f0d;
+            --text-main: #c0c5ce;
+            --text-dim: #6272a4;
+            --neon-green: #50fa7b;
+            --neon-cyan: #8be9fd;
+            --neon-pink: #ff79c6;
+            --border-color: #2d333b;
+            --font-mono: 'Fira Code', monospace;
+            --font-display: 'Share Tech Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* --- HEADER SIMPLE --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            background-color: rgba(5, 5, 5, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        
+        .back-btn {
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+        .back-btn:hover { background: rgba(139, 233, 253, 0.1); box-shadow: 0 0 10px rgba(139, 233, 253, 0.2); }
+
+        .logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--neon-green); }
+
+        /* --- CONTENIDO DEL TUTORIAL --- */
+        main { padding: 60px 0; }
+        
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            border-left: 5px solid var(--neon-pink);
+            padding-left: 15px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--neon-cyan);
+        }
+
+        p { margin-bottom: 20px; color: #abb2bf; }
+
+        /* --- DISEÑO DE PASOS --- */
+        .step {
+            margin-bottom: 50px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--neon-green);
+            color: #000;
+            font-weight: bold;
+            padding: 2px 10px;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        /* --- BLOQUES DE CÓDIGO (ESTILO TERMINAL) --- */
+        .terminal-window {
+            background: #1e1e1e;
+            border-radius: 6px;
+            border: 1px solid #444;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .terminal-header {
+            background: #2d333b;
+            padding: 8px 12px;
+            display: flex;
+            gap: 6px;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5555; }
+        .yellow { background: #f1fa8c; }
+        .green { background: #50fa7b; }
+
+        .code-content {
+            padding: 15px;
+            font-family: var(--font-mono);
+            color: var(--neon-green);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        
+        .code-comment { color: #6272a4; font-style: italic; }
+        .command { color: #fff; }
+        .argument { color: var(--neon-pink); }
+
+        footer {
+            margin-top: 80px;
+            border-top: 1px solid var(--border-color);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .code-content { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-flex">
+            <!-- Botón para volver a la agenda -->
+            <a href="index.html" class="back-btn">&lt; VOLVER A LA AGENDA</a>
+            <div class="logo">DUOC_SEC / TUTORIAL</div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <h1>Personalización de Terminal Linux</h1>
+        <p class="blink-cursor" style="color: var(--neon-green); margin-bottom: 30px;">
+            > Guía paso a paso para transformar tu entorno de trabajo.
+        </p>
+
+        <!-- INTRODUCCIÓN -->
+        <p>
+            Esta guía te enseñará a instalar y configurar <strong>Oh My Zsh</strong> y <strong>Powerlevel10k</strong> para tener una terminal potente, rápida y visualmente atractiva, ideal para operaciones de Ciberseguridad.
+        </p>
+
+        <!-- PASO 1 -->
+        <section class="step">
+            <h2><span class="step-number">01</span> Instalación de Zsh</h2>
+            <p>
+                Primero, necesitamos asegurarnos de tener Zsh instalado en nuestro sistema. Abre tu terminal y ejecuta:
+            </p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="code-comment"># Actualizar repositorios</span><br>
+                    <span class="command">sudo</span> apt update && <span class="command">sudo</span> apt upgrade -y<br><br>
+                    
+                    <span class="code-comment"># Instalar Zsh</span><br>
+                    <span class="command">sudo</span> apt install <span class="argument">zsh</span> -y<br><br>
+                    
+                    <span class="code-comment"># Establecer Zsh como shell por defecto</span><br>
+                    <span class="command">chsh</span> -s $(<span class="command">which</span> zsh)
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 2 -->
+        <section class="step">
+            <h2><span class="step-number">02</span> Instalar Oh My Zsh</h2>
+            <p>
+                Oh My Zsh es un framework para gestionar tu configuración de Zsh. Usa el siguiente comando curl para instalarlo:
+            </p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    sh -c "<span class="command">$(curl</span> -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                </div>
+            </div>
+            <p>
+                <em>Nota: Al terminar, cierra y vuelve a abrir tu terminal para ver los cambios.</em>
+            </p>
+        </section>
+
+        <!-- PASO 3 -->
+        <section class="step">
+            <h2><span class="step-number">03</span> Tema Powerlevel10k</h2>
+            <p>
+                Clona el repositorio de Powerlevel10k dentro de la carpeta de temas de Oh My Zsh.
+            </p>
+            
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="command">git</span> clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+                </div>
+            </div>
+            
+            <p>
+                Luego, edita tu archivo <code>~/.zshrc</code> y cambia la variable <code>ZSH_THEME</code>:
+            </p>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="command">nano</span> ~/.zshrc
+                </div>
+            </div>
+            
+            <p>
+                Busca la línea que dice <code>ZSH_THEME="robbyrussell"</code> y cámbiala por:
+            </p>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    ZSH_THEME=<span class="argument">"powerlevel10k/powerlevel10k"</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 4 -->
+        <section class="step">
+            <h2><span class="step-number">04</span> Configuración Final</h2>
+            <p>
+                Reinicia tu terminal. El asistente de configuración de P10k se iniciará automáticamente. Sigue los pasos en pantalla para elegir el estilo que más te guste (estilo "Rainbow" recomendado para hackers).
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Ciberseguridad DuocUC | Tutorial Terminal</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animación simple para el cursor
+        const blink = document.querySelector('.blink-cursor');
+        setInterval(() => {
+            blink.style.opacity = blink.style.opacity === '0' ? '1' : '0';
+        }, 500);
+    </script>
+</body>
+</html>
